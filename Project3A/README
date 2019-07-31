@@ -1,0 +1,17 @@
+NAME: Kanisha Shah, Nina Maller
+EMAIL: kanishapshah@gmail.com, nina.maller@gmail.com
+ID: 504958165, 604955977
+
+
+lab4b.c: C module which inspects the file system image and produces
+        the summary of contents to STDOUT
+
+
+Makefile: There are 3 targets in it:
+          default: compiles the c file and creates a binary file
+          clean: deletes all unnecessary files
+          dist: creates a tarball containing all the required files
+                for submission
+
+Citations:
+http://cs.smith.edu/~nhowe/262/oldlabs/ext2.html
