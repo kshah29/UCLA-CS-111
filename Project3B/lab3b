@@ -1,0 +1,199 @@
+import csv
+import os
+import sys # use to get the argument
+
+# Define lists
+superblock = None
+group = None
+free_inodes = []
+free_blocks = []
+inode_list = []
+group_list = []
+dirent_list = []
+indirect_list = []
+revised_free_inodes = []
+errors = 0
+
+# Define all classes:
+class Superblock:
+	def __init__(self, row):
+		self.total_block_num = int(row[1])
+		self.total_inodes_num = int(row[2])
+		self.block_size = int(row[3])
+		self.inode_size = int(row[4])
+		self.blocks_per_group = int(row[5])
+		self.inodes_per_group = int(row[6])
+		self.first_nonreserved_inode = int(row[7])
+
+class Group:
+    def __init__(self, row):
+        self.group_num = int(row[1])
+        self.total_blocks_in_group = int(row[2])
+        self.total_inodes_in_group = int(row[3])
+        self.total_free_blocks = int(row[4])
+        self.total_free_inodes = int(row[5])
+        # 3 more here?
+        #block number of free block bitmap for this group (decimal)
+        #block number of free i-node bitmap for this group (decimal)
+        #block number of first block of i-nodes in this group (decimal)
+
+class Inode:
+	def __init__(self, row):
+		self.inode_num = int(row[1])
+		self.file_type = row[2]
+		self.mode = int(row[3])
+		self.owner = int(row[4])
+		self.group = int(row[5])
+		self.link_count = int(row[6])
+		self.ctime = row[7]
+		self.mtime = row[8]
+		self.atime = row[9]
+		self.file_size = int(row[10])
+		self.num_blocks_taken = int(row[11])
+		self.blocks = map(int, row[12:24])
+		self.single_ind = int(row[24])
+		self.double_ind = int(row[25])
+		self.triple_ind = int(row[26])
+
+class Dirent:
+    def __init__(self, row):
+        self.parent_inode = int(row[1])
+        self.logical_offset = int(row[2])
+        self.inode_num = int(row[3])
+        self.entry_length = int(row[4])
+        self.name_length = int(row[5])
+        self.name = row[6].rstrip()
+
+class Indirect:
+    def __init__(self, row):
+        self.inode_num = int(row[1])
+        self.indirection_level = int(row[2])
+        self.logical_offset = int(row[3])
+        self.block_num = int(row[4])
+        self.block_num = int(row[5])
+
+
+def parse_file (filename) :
+
+    # define all globals
+    global superblock, group, free_blocks, free_inodes, inode_list, dirent_list, indirect_list
+
+    with open(filename) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            if row[0] == "SUPERBLOCK":
+                superblock = Superblock(row)
+            elif row[0] == "GROUP":
+                group = Group(row)
+            elif row[0] == "BFREE":
+                free_blocks.append(int(row[1]))
+            elif row[0] == "IFREE":
+                free_inodes.append(int(row[1]))
+            elif row[0] == "INODE":
+                inode_list.append(Inode(row))
+            elif row[0] == "DIRENT":
+                dirent_list.append(Dirent(row))
+            elif row[0] == "INDIRECT":
+                indirect_list.append(Indirect(row))
+            else:
+                print("ERROR: Invalid Line in CSV file", file=sys.stderr)
+                sys.exit(1)
+
+
+
+# Fucntion that looks at all block pointers in the I-node and checks for invalid and
+# reserved blocks
+def check_block_consistency():
+    return
+
+
+
+# Fucntion to scan through all of the I-nodes to determine which are valid/allocated
+def check_inode_allocation():
+
+	# define all globals
+	global free_inodes, inode_list, errors, revised_free_inodes
+	revised_free_inodes = free_inodes
+
+	for inode in inode_list:
+		if inode.file_type == '0' and inode.inode_num not in free_inodes:
+			print("UNALLOCATED INODE " + str(inode.inode_num) + " NOT ON FREELIST")
+			revised_free_inodes.append(inode.inode_num)
+			errors += 1
+		if inode.file_type != '0' and inode.inode_num in free_inodes:
+			print("ALLOCATED INODE " + str(inode.inode_num) + " ON FREELIST")
+			revised_free_inodes.remove(inode.inode_num)
+			errors += 1
+
+
+#    for i in range(Superblock.inodes_num)
+#        if i not in inode_num_visited and not in in free_inode:
+#            print("ALLOCATED INODE " + str(i) + " ON FREELIST")
+
+# Fucntion that scans all directories and reports inconsistencies
+def check_directory_consistency():
+
+	# define all globals
+	global errors,  dirent_list, inode_list, superblock, revised_free_inodes
+	direct_linkcount = {}
+	inode_num_visited = []
+	inode_map_C_P = {}
+
+	# free_inode: need to make a new list for actual unallocated lists
+
+	for dirent in dirent_list:
+		inode_num = dirent.parent_inode
+		if inode_num in direct_linkcount :
+			value = direct_linkcount[inode_num]
+			direct_linkcount[inode_num] = value + 1
+		else:
+			direct_linkcount[inode_num] = int(1)
+
+		if dirent.name != "'.'" and dirent.name != "'..'" :
+			if dirent.inode_num <= superblock.total_inodes_num and dirent.inode_num not in revised_free_inodes :
+				inode_map_C_P[dirent.inode_num] = dirent.parent_inode
+
+	for dirent in dirent_list:
+		if dirent.inode_num > superblock.total_inodes_num:
+			print("DIRECTORY INODE " + str(dirent.parent_inode) + " NAME " + dirent.name + " INVALID INODE " + str(dirent.inode_num) )
+			errors += 1
+		if dirent.inode_num in revised_free_inodes:
+			print("DIRECTORY INODE " + str(dirent.parent_inode) + " NAME " + dirent.name + " UNALLOCATED INODE " + str(dirent.inode_num) )
+			errors += 1
+
+		if dirent.name == "'.'" and dirent.parent_inode != dirent.inode_num :
+			print("DIRECTORY INODE " + str(dirent.parent_inode) + " NAME '.' LINK TO INODE " + str(dirent.inode_num) + " SHOULD BE " + str(dirent.parent_inode))
+			error += 1
+		elif dirent.name == "'..'" and dirent.parent_inode in inode_map_C_P and dirent.inode_num != inode_map_C_P[dirent.parent_inode] :
+			print("DIRECTORY INODE " + str(dirent.parent_inode) + " NAME '..' LINK TO INODE " + str(dirent.inode_num) + " SHOULD BE " + str(inode_map_C_P[dirent.parent_inode]) )
+			error += 1
+
+	for inode in inode_list:
+		if inode.inode_num in direct_linkcount :
+			if direct_linkcount[inode_num] != inode.link_count:
+				# print("INODE " + str(inode.inode_num) + " HAS " + str(inode.link_count) + " LINKS BUT LINKCOUNT IS " + str(direct_linkcount[inode.inode_num]) )
+				print("INODE " + str(inode.inode_num) + " HAS " + str(direct_linkcount[inode.inode_num]) + " LINKS BUT LINKCOUNT IS " + str(inode.link_count) )
+				errors += 1
+		else:
+			# print("INODE " + str(inode.inode_num) + " HAS " + str(inode.link_count) + " LINKS BUT LINKCOUNT IS 0" )
+			print("INODE " + str(inode.inode_num) + " HAS 0 LINKS BUT LINKCOUNT IS " + str(inode.link_count) )
+			errors += 1
+
+
+
+
+def main():
+    # check there is a correct number of arguments
+    if (len(sys.argv) != 2):
+        sys.stderr.write ("Incorrect number of arguments provided")
+        exit(1)
+
+    # get csv here
+    parse_file (sys.argv[1])
+
+    check_block_consistency()
+    check_inode_allocation()
+    check_directory_consistency()
+
+if __name__ == '__main__':
+	main()

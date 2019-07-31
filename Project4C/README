@@ -1,0 +1,29 @@
+NAME: Kanisha Shah
+EMAIL: kanishapshah@gmail.com
+ID: 504958165
+
+
+lab4c_tcp.c: Obtain the host name, port # and server status URL for the TCP logging server.
+              Reads the temperature and reports that to the server through TCP connection.
+              Process the input provided from the server.
+
+lab4c_tls.c: Obtain the host name, port # and server status URL for the TLS logging server.
+              Reads the temperature and reports that to the server through TLS connection.
+              Process the input provided from the server.
+
+Makefile: There are 3 targets in it:
+          default: compiles both the c files and creates binary files
+          clean: deletes all unnecessary files
+          dist: creates a tarball containing all the required files for submission
+
+
+
+Citations:
+http://www.cplusplus.com/reference/cstdio/fputs/
+http://www.cplusplus.com/reference/cstring/strstr/
+https://www.systutorials.com/docs/linux/man/2-poll/
+http://wiki.seeedstudio.com/Grove-Temperature_Sensor_V1.2/
+https://www.geeksforgeeks.org/fgets-gets-c-language/
+https://www.geeksforgeeks.org/strcmp-in-c-cpp/
+http://pubs.opengroup.org/onlinepubs/009695399/functions/fopen.html
+https://www.geeksforgeeks.org/use-fflushstdin-c/

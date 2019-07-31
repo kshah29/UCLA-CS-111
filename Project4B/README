@@ -1,0 +1,26 @@
+NAME: Kanisha Shah
+EMAIL: kanishapshah@gmail.com
+ID: 504958165
+
+
+lab4b.c: source file for an embedded application that builds and runs
+        on an embedded system
+
+
+Makefile: There are 3 targets in it:
+          default: compiles the c file and creates a binary file
+          clean: deletes all unnecessary files
+          dist: creates a tarball containing all the required files for submission
+          test: execute an automated smoke-test of your application
+
+
+
+Citations:
+http://www.cplusplus.com/reference/cstdio/fputs/
+http://www.cplusplus.com/reference/cstring/strstr/
+https://www.systutorials.com/docs/linux/man/2-poll/
+http://wiki.seeedstudio.com/Grove-Temperature_Sensor_V1.2/
+https://www.geeksforgeeks.org/fgets-gets-c-language/
+https://www.geeksforgeeks.org/strcmp-in-c-cpp/
+http://pubs.opengroup.org/onlinepubs/009695399/functions/fopen.html
+https://www.geeksforgeeks.org/use-fflushstdin-c/

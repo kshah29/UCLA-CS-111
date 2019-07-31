@@ -1,0 +1,15 @@
+# NAME: Kanisha Shah, Nina Maller
+# EMAIL: kanishapshah@gmail.com, nina.maller@gmail.com
+# ID: 504958165, 604955977
+
+#!/bin/bash
+
+if [ $# -ne 1 ]
+then
+  echo 'ERROR: Need a csv filename as an argument'
+  exit 1
+fi
+
+python lab3b.py $1
+
+#echo $?

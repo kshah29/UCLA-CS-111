@@ -1,0 +1,37 @@
+NAME: Kanisha Shah
+EMAIL: kanishapshah@gmail.com
+ID: 504958165
+
+
+Beaglebone S/N: BBGW17052055
+Mac: 2CF7F1066795
+
+
+Makefile: There is only one target in it:
+          dist: creates a tarball containing all the required files for submission
+
+my_beaglebone.jpg: It's a selfie of me holding the Beaglebone and showing the front
+                    of the board
+
+connected.png: It's a screenshot of the USB terminal command session which shows that
+              I hanged the name (showed using 'hostname') and have connected to wifi
+
+copy.png: It's a screenshot of the local session showing that hello world program has
+          been successfully copied to the beaglebone using scp command
+
+build_run.png: It's a screenshot of the WIFI SSH session showing that the hello world
+              is built (using gcc) and ran
+
+git.png: It's a screenshot of the WIFI SSH session showing that git is installed on the
+        Beaglebone and a repository is cloned
+
+
+
+Problems Experienced:
+Even after setting the hostname to 504958165.lasr.cs.ucla.edu, it was not showing up
+on the beaglebone terminal. It showed the old hostname. In order to resolve this issue,
+I had to restart my Beaglebone. The issue being resolved can be seen in git.png
+
+
+Citations:
+CS 111 Lab 1D slides

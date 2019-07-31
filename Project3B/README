@@ -1,0 +1,37 @@
+NAME: Kanisha Shah, Nina Maller
+EMAIL: kanishapshah@gmail.com, nina.maller@gmail.com
+ID: 504958165, 604955977
+
+
+lab3b.py: python module which inspects the csv file for file system image
+        the summary of contents to STDOUT
+
+
+Makefile: There are 3 targets in it:
+          default: compiles the py file and creates a binary file
+          clean: deletes all unnecessary files
+          dist: creates a tarball containing all the required files
+                for submission
+
+Citations:
+https://realpython.com/python-csv/
+https://www.systutorials.com/241727/how-to-print-a-line-to-stderr-and-stdout-in-python/
+
+for inode in inode_list:
+  link_count = 0
+  for dirent in dirent_list:
+    if inode.inode_num == dirent.
+
+
+    		# if inode.inode_num in free_inodes:
+    		# 	print("ALLOCATED INODE " + str(inode.inode_num) + " ON FREELIST")
+    		# 	errors += 1
+    		# else:
+    		# 	if inode.file_type == '0':
+    		# 		print("UNALLOCATED INODE " + str(inode.inode_num) + " NOT ON FREELIST")
+    		# 		errors += 1
+
+
+    #    for i in range(Superblock.inodes_num)
+    #        if i not in inode_num_visited and not in in free_inode:
+    #            print("ALLOCATED INODE " + str(i) + " ON FREELIST")
