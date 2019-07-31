@@ -1,0 +1,35 @@
+NAME: Kanisha Shah
+EMAIL: kanishapshah@gmail.com
+ID: 504958165
+
+
+lab1b-client.c: It will connect to the server using the port number given.
+                Client sends the input from keyboard and sends it to server
+                and also output to the STDOUT. Input from the socket is sent
+                to display. If encrypt option is provided, we encrypt the
+                message sent and decrypt the message received. If log option
+                is used, we log all the communications in the log file. It
+                record outgoing data post-encryption and incoming data
+                pre-decryption.
+
+
+lab1b-server.c: It connects with client. Forks a new process and run shell on
+                it. It  receives the client's commands and send them to the shell,
+                and will "serve" the client If encrypt option is provided, we
+                encrypt the message sent and decrypt the message received.
+
+
+Makefile: There are 3 targets in it:
+          default: compiles both the client and server c files to create a binary file
+          clean: deletes all unnecessary files
+          dist: creates a tarball containing all the required files for submission
+
+
+
+Citations:
+CS111 Project 1A
+CS 111 Lab 1D slides
+https://www.tutorialspoint.com/unix_sockets/socket_helper_functions.htm
+https://www.geeksforgeeks.org/what-is-the-best-way-in-c-to-convert-a-number-to-a-string/
+https://linux.die.net/man/3/mcrypt
+https://cboard.cprogramming.com/c-programming/127454-mcrypt-function.html

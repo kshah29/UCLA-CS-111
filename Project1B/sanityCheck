@@ -1,0 +1,143 @@
+... using test directory /u/cs/ugrad/sriharsh/Desktop/CS111_test.sriharsh
+... extracting /u/cs/ugrad/sriharsh/Desktop/lab1b-504958165.tar.gz
+./._lab1b-client.c
+lab1b-client.c
+./._lab1b-server.c
+lab1b-server.c
+./._my.key
+my.key
+./._Makefile
+Makefile
+./._README
+README
+... checking for README file
+    README ... OK
+... checking for submitter ID in README
+    single submitter: 504958165
+... checking for submitter email in README
+    single address: kanishapshah@gmail.com ... OK
+... checking for submitter name in README
+    submitter(s): Kanisha Shah ... OK
+... checking slip-day use in README
+    no SLIPDAYS: entry
+... checking for other expected files
+    Makefile ... OK
+    my.key ... OK
+... checking for other files of expected types
+    lab1b-client.c ... OK
+    lab1b-server.c ... OK
+... checking for required Make targets
+    Makefile target clean ... OK
+    Makefile target dist ... OK
+... checking for required compillation options
+    Makefile includes Wall ... OK
+    Makefile includes Wextra ... OK
+... building default target(s)
+gcc -g -Wall -Wextra -lmcrypt -o lab1b-client lab1b-client.c
+gcc -g -Wall -Wextra -lmcrypt -o lab1b-server lab1b-server.c
+    RC=0 ... OK
+    error output ...  NONE
+... checking make dist
+tar -cvzf lab1b-504958165.tar.gz lab1b-client.c lab1b-server.c my.key Makefile README
+lab1b-client.c
+lab1b-server.c
+my.key
+Makefile
+README
+    RC=0 ... OK
+    error output ...  NONE
+    lab1b-504958165.tar.gz ... OK
+ ... checking make clean
+rm -rf lab1b-client lab1b-server *.tar.gz *.dSYM
+    RC=0 ... OK
+    restored to freshly untar-ed state ... OK
+... redo default make
+gcc -g -Wall -Wextra -lmcrypt -o lab1b-client lab1b-client.c
+gcc -g -Wall -Wextra -lmcrypt -o lab1b-server lab1b-server.c
+    RC=0 ... OK
+    error output ...  NONE
+... checking for expected products
+    lab1b-client ... OK
+    lab1b-server ... OK
+... lab1b-client detects/reports bogus arguments
+    RC=1 ... OK
+        ./lab1b-client: unrecognized option '--bogus'
+Error: Unrecognized option 
+... lab1b-server detects/reports bogus arguments
+    RC=1 ... OK
+        ./lab1b-server: unrecognized option '--bogus'
+Error: Unrecognized option 
+... downloading pty_test.c from www.cs.ucla.edu/classes/cs111/Software
+... building pty_test
+-rwxr-xr-x 1 sriharsh csugrad 23464 Oct 17 00:03 pty_test
+... downloading logfilter.c from www.cs.ucla.edu/classes/cs111/Software
+... building logfilter
+-rwxr-xr-x 1 sriharsh csugrad 9176 Oct 17 00:03 logfilter
+... lab1b-client detects/reports system unwritable log file
+    RC=1 ... OK
+Error: could not create file 
+Error: Port Number not provided 
+... testing trivial shell session
+    RC=0 ... OK
+   log SENT commands ... PASS
+   log RECEIVED commands ... PASS
+   plausible shell output ... PASS
+   server correctly reports shell exit status ... PASS
+... testing encrypted shell session
+    RC=0 ... FAIL (RC=254)
+ERROR: shell did not properly execute commands
+   encrypted SENT commands ... PASS
+   encrypted shell output ... PASS
+   shell properly receives commands ... FAIL
+!!! ORPHAN lab1b-server after encrypted shell session
+sriharsh  5666  0.0  0.0   6592   388 pts/75   SL+  00:03   0:00 ./lab1b-server --port=6863 --encrypt=my.key
+lab1b-server(2975): Operation not permitted
+lab1b-server(4900): Operation not permitted
+lab1b-server(5654): Operation not permitted
+lab1b-server(8493): Operation not permitted
+lab1b-server(9190): Operation not permitted
+lab1b-server(11881): Operation not permitted
+lab1b-server(13289): Operation not permitted
+lab1b-server(13295): Operation not permitted
+lab1b-server(14140): Operation not permitted
+lab1b-server(16227): Operation not permitted
+lab1b-server(17566): Operation not permitted
+lab1b-server(19520): Operation not permitted
+lab1b-server(22104): Operation not permitted
+lab1b-server(24138): Operation not permitted
+lab1b-server(24548): Operation not permitted
+lab1b-server(25067): Operation not permitted
+lab1b-server(27652): Operation not permitted
+lab1b-server(29519): Operation not permitted
+lab1b-server(30344): Operation not permitted
+lab1b-server(31388): Operation not permitted
+lab1b-server(32276): Operation not permitted
+lab1b-server(32943): Operation not permitted
+lab1b-server(34128): Operation not permitted
+lab1b-server(34186): Operation not permitted
+lab1b-server(34551): Operation not permitted
+lab1b-server(35713): Operation not permitted
+lab1b-server(36477): Operation not permitted
+lab1b-server(36490): Operation not permitted
+lab1b-server(36571): Operation not permitted
+lab1b-server(37520): Operation not permitted
+lab1b-server(37952): Operation not permitted
+lab1b-server(38335): Operation not permitted
+lab1b-server(39415): Operation not permitted
+lab1b-server(42482): Operation not permitted
+lab1b-server(44993): Operation not permitted
+./P1B_check.sh: line 226:  5666 Terminated              ./$SERVER --port=$PORT --encrypt=$KEYFILE > SVR_OUT 2> SVR_ERR
+... checking use of mcrypt
+    ... mcrypt_module_open ... OK
+    ... mcrypt_generic ... OK
+    ... mdecrypt_generic ... OK
+
+THIS SUBMISSION WILL USE NO SLIP-DAYS
+
+THE ONLY STUDENTS WHO WILL RECEIVE CREDIT FOR THIS SUBMISSION ARE:
+    504958165    kanishapshah@gmail.com
+
+... cleaning up temporary files
+... removing test directory /u/cs/ugrad/sriharsh/Desktop/CS111_test.sriharsh
+
+SUBMISSION lab1b-504958165.tar.gz ... FAILS sanity check with 3 errors
